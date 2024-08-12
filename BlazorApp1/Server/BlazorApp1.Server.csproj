@@ -4,7 +4,19 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Company>DCM</Company>
+    <Product />
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="lastCOM.ans" />
+    <None Remove="url.ans" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="lastCOM.ans" />
+    <Content Include="url.ans" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />

@@ -139,6 +139,7 @@ namespace BlazorApp1.Server
                             //responseMessage = "<[ACK]CRC=79;>";
                             //Console.WriteLine($"Datos enviados: {responseMessage}");
                             //responseBytes = Encoding.ASCII.GetBytes(responseMessage);
+
                             //stream.Write(responseBytes, 0, responseBytes.Length);
 
                             //// Limpiar el mensajeBuilder para recibir el próximo mensaje.
@@ -183,8 +184,7 @@ namespace BlazorApp1.Server
                     if (text.Contains("@"))
                     {
                         var splitText = text.Split("@");
-                        splitText = splitText.Where(x => int.TryParse(x, out _)).ToArray();
-                        text = splitText[1];
+                        text = new string(splitText[4].Where(char.IsDigit).ToArray());
                     }
                     else
                     {
@@ -354,7 +354,7 @@ namespace BlazorApp1.Server
             string apiEndpoint = $"{url}" + intDocument;
 
 
-            if (intDocument == 43717944 || intDocument == 39489445 || intDocument == 16058146 || intDocument == 38177265)
+            if (intDocument == 43717944 || intDocument == 39489445 || intDocument == 16058146 || intDocument == 38177265 || intDocument == 43990922)
             {
                 return new Result<bool> { Success = true, accesGranted = true };
             }
