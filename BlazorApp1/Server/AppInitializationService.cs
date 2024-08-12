@@ -92,11 +92,11 @@ namespace BlazorApp1.Server
                                 var intDNI = ExtractAndConvertToInt(getDNI(textoDeseado));
                                 if (intDNI.ToString().Length > 8)
                                 {
-                                    Console.WriteLine($"el dni sin modificar es {intDNI}");
+                                    Console.WriteLine($"el DNI sin modificar es {intDNI}");
                                     var dniString = intDNI.ToString();
                                     dniString = dniString.Substring(dniString.Length - 8, 8);
                                     intDNI = ExtractAndConvertToInt(dniString);
-                                    Console.WriteLine($"el dni modificado es {dniString}");
+                                    Console.WriteLine($"el DNI modificado es {dniString}");
 
                                 }
                                 if (intDNI == 0)
