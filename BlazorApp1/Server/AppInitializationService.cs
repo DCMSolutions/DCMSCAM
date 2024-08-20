@@ -245,10 +245,14 @@ namespace BlazorApp1.Server
             // Por ejemplo, puedes realizar configuraciones iniciales, cargar datos, etc.
             try
             {
-                EscribirTextoEnArchivo("La aplicación se ha iniciado");
-                Console.WriteLine("La aplicación se ha iniciado");
-                _work = new Thread(StartReading);
-                _work.Start();
+                if (_work == null)
+                {
+                    EscribirTextoEnArchivo("La aplicación se ha iniciado");
+                    Console.WriteLine("La aplicación se ha iniciado");
+                    _work = new Thread(StartReading);
+                    _work.Start();
+                }
+                Console.WriteLine("hola que ase");
             }
             catch (Exception ex)
             {
@@ -258,7 +262,6 @@ namespace BlazorApp1.Server
         }
         public async Task Start(string COM)
         {
-
             _COM = COM;
             StartAsync(cancellationToken: System.Threading.CancellationToken.None);
         }
@@ -310,6 +313,7 @@ namespace BlazorApp1.Server
         {
             int port = 4800;
             TcpListener server = new TcpListener(IPAddress.Any, port);
+
             server.Start();
 
             Console.WriteLine($"Escuchando mensajes en el puerto {port}. Presiona Enter para detener...");

@@ -120,15 +120,22 @@ else
     }
     public async Task send()
     {
-        var serialPort = $"COM{serialPortNumber}";
-        await _hubConnection.SendAsync("COMChanges", serialPort);
+        if (_hubConnection.State == HubConnectionState.Connected)
+        {
+            var serialPort = $"COM{serialPortNumber}";
+            await _hubConnection.SendAsync("COMChanges", serialPort);
 
-        await http.GetStringAsync($"api/settings?url={url}");
-        ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Modificación exitosa.", Detail = "Se han guardado los cambios correctamente.", Duration = 4000 });
+            await http.GetStringAsync($"api/settings?url={url}");
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Modificación exitosa.", Detail = "Se han guardado los cambios correctamente.", Duration = 4000 });
 
-        //await http.PostAsJsonAsync("api/settings", "{\"key\"}");
-        Console.WriteLine(serialPort);
+            Console.WriteLine(serialPort);
+        }
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de conexión", Detail = "La conexión no está activa.", Duration = 4000 });
+        }
     }
+
 
     void ShowNotification(NotificationMessage message)
     {

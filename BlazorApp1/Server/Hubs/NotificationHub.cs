@@ -21,8 +21,10 @@ namespace BlazorApp1.Server.Hubs
         }
         public async Task COMChanges(string serialPort)
         {
-            _app.StopAsync(cancellationToken:System.Threading.CancellationToken.None);
-            _app.Start(serialPort);
+            Console.WriteLine("HOLA");
+
+            await _app.StopAsync(cancellationToken:System.Threading.CancellationToken.None);
+            await _app.Start(serialPort);
             
             await Clients.All.SendAsync("COMChanges", serialPort);
         }
