@@ -122,13 +122,15 @@ else
     {
         if (_hubConnection.State == HubConnectionState.Connected)
         {
-            var serialPort = $"COM{serialPortNumber}";
-            await _hubConnection.SendAsync("COMChanges", serialPort);
-
+            int viejoCom = await http.GetFromJsonAsync<int>("api/settings/com");
+            if (viejoCom != serialPortNumber)
+            {
+                var serialPort = $"COM{serialPortNumber}";
+                await _hubConnection.SendAsync("COMChanges", serialPort);
+            }
             await http.GetStringAsync($"api/settings?url={url}");
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Modificación exitosa.", Detail = "Se han guardado los cambios correctamente.", Duration = 4000 });
 
-            Console.WriteLine(serialPort);
         }
         else
         {
